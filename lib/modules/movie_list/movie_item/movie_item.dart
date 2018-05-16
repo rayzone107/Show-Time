@@ -61,7 +61,7 @@ class _MovieItemState extends State<MovieItem> {
                       new Container(
                         margin: const EdgeInsets.only(right: 10.0),
                         child: new Text(
-                          widget.movie.voteAverage.toString(),
+                          widget.movie.voteAverage.toStringAsFixed(1),
                           style: new TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,

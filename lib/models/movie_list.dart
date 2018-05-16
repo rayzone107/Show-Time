@@ -18,9 +18,10 @@ class MovieList {
   }
 
   static List<Movie> getMovieList(var json) {
+
     List<Movie> movies = [];
 
-    final moviesList = (json['results'] as List).map((i) =>
+    final moviesList = (json as List).map((i) =>
     new Movie.fromJson(i));
     for (final movie in moviesList) {
       movies.add(movie);

@@ -17,7 +17,7 @@ String urlBuilderWithPage(String path, int page) {
   return BASE_URL + path + API_URL + "page=" + page.toString();
 }
 
-Future<List<Movie>> fetchPopularMovies(int page) async {
+/*Future<List<Movie>> fetchPopularMovies(int page) async {
   List<Movie> movies = [];
   final response = await http.get(urlBuilderWithPage("3/movie/popular", page));
   final responseJson = json.decode(response.body);
@@ -29,9 +29,9 @@ Future<List<Movie>> fetchPopularMovies(int page) async {
   }
 
   return movies;
-}
+}*/
 
-Future<MovieList> fetchPopularMovies2(int page) async {
+Future<MovieList> fetchPopularMovies(int page) async {
   final response = await http.get(urlBuilderWithPage("3/movie/popular", page));
   return new MovieList.fromJson(json.decode(response.body));
 }
