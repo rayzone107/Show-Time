@@ -17,6 +17,7 @@ class _MoviesPageState extends State<MoviesPage>
   var movieCache = new List<Movie>();
   int currentPage = 1;
   int currentState = ViewState.LOADING;
+  bool isFetching = false;
 
   @override
   Widget build(BuildContext context) {
@@ -51,30 +52,37 @@ class _MoviesPageState extends State<MoviesPage>
       itemCount: movieCache.length + 1,
       itemBuilder: (BuildContext context, int index) =>
       index < movieCache.length
-          ? _itemBuilder(movieCache[index])
+          ? _itemBuilder(index)
           : _loadingBuilder(),
     );
   }
 
-  Widget _itemBuilder(Movie movie) {
-    return new MovieItem(movie: movie);
+  Widget _itemBuilder(int index) {
+    if(!isFetching && index >= movieCache.length - 5) {
+      currentPage++;
+      _fetchPopularMovieList(currentPage);
+    }
+    return new MovieItem(movie: movieCache[index]);
   }
 
   Widget _loadingBuilder() {
-    currentPage++;
-    _fetchPopularMovieList(currentPage);
+//    currentPage++;
+//    _fetchPopularMovieList(currentPage);
     return new LoadingItem();
   }
 
   _fetchPopularMovieList(int page) async {
+    isFetching = true;
     network.fetchPopularMovies(page)
         .then((data) {
       setState(() {
+        isFetching = false;
         currentState = ViewState.DATA;
         movieCache.addAll(data.movieList);
       });
     }).catchError((e) {
       setState(() {
+        isFetching = false;
         currentState = ViewState.ERROR;
       });
     });
@@ -93,6 +101,6 @@ class _MoviesPageState extends State<MoviesPage>
 
   @override
   actionClicked() {
-    print("Retry Clicked");
+    _fetchPopularMovieList(0);
   }
 }

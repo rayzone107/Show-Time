@@ -44,6 +44,7 @@ class _MovieItemState extends State<MovieItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   new Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       new Expanded(
                         child: new Container(
@@ -59,7 +60,7 @@ class _MovieItemState extends State<MovieItem> {
                         ),
                       ),
                       new Container(
-                        margin: const EdgeInsets.only(right: 10.0),
+                        margin: const EdgeInsets.only(top: 12.0, right: 10.0),
                         child: new Text(
                           widget.movie.voteAverage.toStringAsFixed(1),
                           style: new TextStyle(
