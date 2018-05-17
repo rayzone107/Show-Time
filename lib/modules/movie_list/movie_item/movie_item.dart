@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:show_time2/models/movie.dart';
 import 'package:show_time2/modules/detail/movie_detail.dart';
 
@@ -19,6 +20,10 @@ class _MovieItemState extends State<MovieItem> {
   final TextStyle labelStyle = new TextStyle(
     color: Colors.grey[500],
   );
+
+  DateFormat df = new DateFormat.yMMMMd("en_US");
+
+  bool isReleased = true;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +91,7 @@ class _MovieItemState extends State<MovieItem> {
                     margin: const EdgeInsets.only(top: 10.0),
                     child: new Row(
                       children: <Widget>[
-                        new Text("RELEASED",
+                        new Text(isReleased ? "RELEASED" : "RELEASING",
                           style: new TextStyle(
                             color: Colors.grey[500],
                             fontSize: 11.0,
@@ -94,7 +99,7 @@ class _MovieItemState extends State<MovieItem> {
                         ),
                         new Container(
                             margin: const EdgeInsets.only(left: 5.0),
-                            child: new Text(widget.movie.releaseDate)
+                            child: _setDate()
                         ),
                       ],
                     ),
@@ -114,6 +119,15 @@ class _MovieItemState extends State<MovieItem> {
       builder: (BuildContext context) => new MovieDetail(movie: widget.movie),
     );
     Navigator.push(context, route);
+  }
+
+  Widget _setDate() {
+    String date = widget.movie.releaseDate;
+    DateTime dateTime = DateTime.parse(date);
+    setState(() {
+      isReleased = dateTime.isBefore(new DateTime.now());
+    });
+    return new Text(df.format(dateTime));
   }
 }
 

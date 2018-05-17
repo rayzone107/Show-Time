@@ -11,6 +11,7 @@ class _LoadingItemState extends State<LoadingItem> {
   Widget build(BuildContext context) {
     return new Container(
       height: 50.0,
+      margin: const EdgeInsets.symmetric(vertical: 20.0),
       child: new Center(
         child: new CircularProgressIndicator(),
       ),

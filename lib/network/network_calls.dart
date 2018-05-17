@@ -21,3 +21,18 @@ Future<MovieList> fetchPopularMovies(int page) async {
   final response = await http.get(urlBuilderWithPage("3/movie/popular", page));
   return new MovieList.fromJson(json.decode(response.body));
 }
+
+Future<MovieList> fetchTopRatedMovies(int page) async {
+  final response = await http.get(urlBuilderWithPage("3/movie/top_rated", page));
+  return new MovieList.fromJson(json.decode(response.body));
+}
+
+Future<MovieList> fetchNowPlayingMovies(int page) async {
+  final response = await http.get(urlBuilderWithPage("3/movie/now_playing", page));
+  return new MovieList.fromJson(json.decode(response.body));
+}
+
+Future<MovieList> fetchUpcomingMovies(int page) async {
+  final response = await http.get(urlBuilderWithPage("3/movie/upcoming", page));
+  return new MovieList.fromJson(json.decode(response.body));
+}
